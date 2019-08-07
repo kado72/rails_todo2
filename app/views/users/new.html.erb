@@ -1,0 +1,10 @@
+<h1>新規登録</h1>
+
+<p>新規登録を行うことで、ToDoアプリを使用することができます。</p>
+<%= form_with url: "/users/create" do %>
+    <p>ユーザー名<br>
+    <input type='text' name='name'></p>
+    <p>パスワード<br>
+    <input type='password' name='password'></p>
+    <input class='blue-button' type='submit' value='新規作成'>
+<% end %>

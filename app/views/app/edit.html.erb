@@ -1,0 +1,37 @@
+<h1>編集</h1>
+<p>投稿された内容を更新、削除します。</p>
+<small>※更新されない場合はページをリロードしてください</small>
+<div class='table'>
+  更新日 ToDo<br>
+       <% @todos.each do |todo| %>
+  <%= form_with url: "/app/todo/edit/#{todo.id}/update" do %>
+    <%= todo.updated_at.strftime("%m/%d") %>
+    <input name="content" value="<%= todo.content %>" size="30">  
+    <input class='blue-button' type="submit" value="更新">
+          <%= link_to "削除", "/app/todo/edit/#{todo.id}/destroy", method: :post, data: { confirm: "本当に削除しますか？"} %>
+  <% end %>
+ <% end %>
+ </div>
+
+
+<!--<p>Form tag</p>-->
+<!-- <table>-->
+<!--  <tr>-->
+<!--      <th>更新日</th>-->
+<!--      <th >ToDo</th>-->
+<!--      <th></th>-->
+<!--    </tr>-->
+<!--     <% @todos.each do |todo| %>-->
+<!--       <%= form_with url: "/app/todo/edit/#{todo.id}/update" do %>-->
+<!--        <tr>-->
+<!--          <td><input name="content" value="<%= todo.content %>" size="30"><td>-->
+<!--          <td><input type="submit" value="更新">        -->
+<!--          <%= todo.id %>-->
+<!--          </td>-->
+<!--        </tr>-->
+<!--      <% end %><% end %>-->
+        
+<!--  </table>-->
+<div class="forlink">
+  <%= link_to "ToDo一覧へ戻る", "/app/todo/" %>
+</div>

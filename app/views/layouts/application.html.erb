@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Generate</title>
+    <%= csrf_meta_tags %>
+    <%= stylesheet_link_tag "reset", :media => "all" %>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <header>
+        <div class='header-left'>
+          <ul>
+            <li><a href='/'>ホーム</a></li>
+                <% if @current_user%>
+                  <li><a href='/app/todo'>ToDo</a></li>
+                  <li><%= link_to "編集", "/app/todo/edit/" %></li>
+                  <li><%= link_to(@current_user.name,"/users/detail/#{@current_user.id}") %></li>
+                  <li><%= link_to('ログアウト','/users/logout', {method: "post"}) %></li>
+                <% else %>
+                  <li><%= link_to('ログイン','/users/login_form') %></li>
+                  <li><%= link_to('新規登録','/users/new') %></li>
+                <% end %>
+          </ul>
+        </div>
+        
+    </header>
+    
+    <main>
+
+    <% if flash[:notice] %>
+      <div class="flash">
+        <%= flash[:notice] %>
+      </div>
+    <% end %>
+    <%= yield %>
+    </main>
+    <footer>
+      <div>
+        詳細はreadmeにて
+      </div>
+      <%= javascript_pack_tag 'hello_react' %>
+    </footer>
+  </body>
+</html>

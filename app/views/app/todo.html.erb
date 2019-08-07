@@ -1,0 +1,36 @@
+<h2>投稿</h2>
+ToDoに内容を投稿します。
+<%= form_tag("/app/todo/post") do %>
+<input name = 'content' placeholder="内容を記入する" size="30">
+<input type='submit' value="送信" >
+<% end %>
+<div class="todo">
+    <h2>ToDo一覧</h2>
+    <p>投稿順ではなく、編集を行った順番に並べています。</p>
+    <% if Todo.where(user_id: @current_user.id,star: true).count>=1 %>
+    <p>優先事項が<%= Todo.where(user_id: @current_user.id,star: true).count  %>個あります。</p>
+    <% end %>
+    <table>
+      <tr>
+      <th>作成日</th>
+      <th>ToDo</th>
+      <th>優先</th>
+      </tr>
+    <% @todos.each do |todo| %>
+    <% if todo.user_id == @current_user.id %>
+       <tr>
+          <td><%= todo.created_at.strftime("%m/%d") %></td>
+          <td><%= todo.content %></td>
+          <% if todo.star %>
+          <td class='center'><%= link_to "★", "/app/todo/#{todo.id}/star", method: :post, remote: true %></td>
+          <% else %>
+          <td class='center'><%= link_to "☆", "/app/todo/#{todo.id}/star", method: :post, remote: true %></td>
+          <% end %>
+        </tr>
+     <% end %>
+  <% end %>
+  </table>
+</div>
+<div class='forlink'>
+ <span class="edit"><%= link_to "編集ページへ", "/app/todo/edit" %></span>
+</div>
